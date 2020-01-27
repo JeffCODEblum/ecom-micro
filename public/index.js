@@ -135,7 +135,7 @@ const paymentForm = new SqPaymentForm({
                 countryCode: "US",
                 total: {
                   label: "MERCHANT NAME",
-                  amount: "60.00",
+                  amount: "1.00",
                   pending: false
                 },
                 lineItems: [

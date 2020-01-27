@@ -127,6 +127,7 @@ app.post('/post-comment', (req, res) => {
 });
 
 app.post('/process-payment', async (req, res) => {
+    console.log('process payment hit');
     const request_params = { nonce: req.body.nonce };
 
     // length of idempotency_key should be less than 45

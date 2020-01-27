@@ -164,7 +164,7 @@ const paymentForm = new SqPaymentForm({
                 return;
             }
             else {
-                postPayment(nonce, formData);
+                postPayment(nonce, {});
             }
         }
     }

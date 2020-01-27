@@ -158,6 +158,14 @@ const paymentForm = new SqPaymentForm({
         },
         cardNonceResponseReceived: function (errors, nonce, cardData) {
             console.log('Card nonce response received!');
+            if (errors) {
+                console.log(errors);
+                $.alert({title: 'Error', content: 'Your payment could not be processed. Please try again.'});
+                return;
+            }
+            else {
+                postPayment(nonce, formData);
+            }
         }
     }
 });

@@ -129,25 +129,6 @@ app.post('/post-comment', (req, res) => {
 app.post('/process-payment', async (req, res) => {
     const request_params = { nonce: req.body.nonce };
 
-    const name = req.body.formData.name;
-    const email = req.body.formData.email;
-    const address1 = req.body.formData.address1;
-    const address2 = req.body.formData.address2;
-    const city = req.body.formData.city;
-    const state = req.body.formData.state;
-    const zip = req.body.formData.zip;
-    const country = req.body.formData.country;
-    const qty = req.body.formData.qty;
-
-    console.log(name, email, address1, address2, city, state, zip, country, qty);
-
-    if (!(name && email && address1 && city && state && zip && country && qty)) {
-        res.sendStatus(404);
-        return;
-    }
-
-    const charge = qty * config.sellingPrice * 100;
-
     // length of idempotency_key should be less than 45
     const idempotency_key = crypto.randomBytes(22).toString('hex');
  
@@ -156,7 +137,7 @@ app.post('/process-payment', async (req, res) => {
     const request_body = {
       source_id: request_params.nonce,
       amount_money: {
-        amount: charge,
+        amount: 100,
         currency: 'USD'
       },
       idempotency_key: idempotency_key
@@ -166,20 +147,20 @@ app.post('/process-payment', async (req, res) => {
         const response = await payments_api.createPayment(request_body);
 
         console.log("pay response", response);
-        const orderModel = new OrderModel({
-            name: name,
-            email: email,
-            address1: address1,
-            address2: address2,
-            city: city,
-            state: state,
-            zip: zip,
-            country: country,
-            qty: qty,
-            ts: Date.now(),
-            filled: '0'
-        });
-        orderModel.save();
+        // const orderModel = new OrderModel({
+        //     name: name,
+        //     email: email,
+        //     address1: address1,
+        //     address2: address2,
+        //     city: city,
+        //     state: state,
+        //     zip: zip,
+        //     country: country,
+        //     qty: qty,
+        //     ts: Date.now(),
+        //     filled: '0'
+        // });
+        // orderModel.save();
 
       res.status(200).json({
         'title': 'Payment Successful',

@@ -157,7 +157,7 @@ const paymentForm = new SqPaymentForm({
               return paymentRequestJson;
         },
         cardNonceResponseReceived: function (errors, nonce, cardData) {
-          
+            console.log('Card nonce response received!');
         }
     }
 });

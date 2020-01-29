@@ -90,8 +90,7 @@ const paymentForm = new SqPaymentForm({
     inputClass: 'sq-input',
     autoBuild: false,
     googlePay: {
-        elementId: 'sq-google-pay',
-        wallet: 'foo'
+        elementId: 'sq-google-pay'
     },
     inputStyles: [{
         fontSize: '16px',

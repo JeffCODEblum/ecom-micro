@@ -127,7 +127,6 @@ app.post('/post-comment', (req, res) => {
 });
 
 app.post('/process-payment', async (req, res) => {
-    console.log('process payment hit');
     const request_params = { nonce: req.body.nonce };
 
     // length of idempotency_key should be less than 45
@@ -143,6 +142,7 @@ app.post('/process-payment', async (req, res) => {
       },
       idempotency_key: idempotency_key
     };
+    console.log('process payment hit', request_body);
  
     try {
         const response = await payments_api.createPayment(request_body);
@@ -163,15 +163,16 @@ app.post('/process-payment', async (req, res) => {
         // });
         // orderModel.save();
 
-      res.status(200).json({
-        'title': 'Payment Successful',
-        'result': response
-      });
+        res.status(200).json({
+            'title': 'Payment Successful',
+            'result': response
+        });
     } catch(error) {
-      res.status(500).json({
-        'title': 'Payment Failure',
-        'result': error.response.text
-      });
+        console.log(error);
+        res.status(500).json({
+            'title': 'Payment Failure',
+            'result': error.response.text
+        });
     }
 });
 

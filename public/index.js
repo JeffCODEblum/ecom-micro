@@ -1,4 +1,8 @@
 var stars = 5;
+var Config = {
+    sellingPrice: $("#selling-price").data("selling-price"),
+    appId: $("#app-id").data("app-id")
+};
 
 $(".img-thmb").click(function(e) {
     e.preventDefault();
@@ -82,7 +86,7 @@ function postPayment(data) {
 }
 
 const paymentForm = new SqPaymentForm({
-    applicationId: $('#square-app-id').data('square-app-id'),
+    applicationId: Config.appId,
     locationId: 'US',
     inputClass: 'sq-input',
     autoBuild: false,
@@ -131,18 +135,18 @@ const paymentForm = new SqPaymentForm({
                 countryCode: "US",
                 total: {
                   label: "Millennial Marketing Firm",
-                  amount: "2.95",
+                  amount: Config.sellingPrice,
                   pending: false
                 },
                 lineItems: [
                   {
                     label: "Subtotal",
-                    amount: "1.95",
+                    amount: Config.sellingPrice,
                     pending: false
                   },
                   {
                       label: "Shipping",
-                      amount: "1.00",
+                      amount: "0.00",
                       pending: true
                   }
                 ],
@@ -150,7 +154,7 @@ const paymentForm = new SqPaymentForm({
                   {
                     id: "1",
                     label: "Standard Shipping",
-                    amount: "1.00"
+                    amount: "0.00"
                   }
                ]
               };

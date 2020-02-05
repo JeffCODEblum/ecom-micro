@@ -14,14 +14,10 @@ module.exports = function(body) {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
             <link rel="stylesheet" href="./style.css"></style>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-            <script>
-                Config = {
-                    sellingPrice: ${Config.sellingPrice}
-                };
-            </script>
         </head>
         <body>
-        <div id="square-app-id" style="display: none;" data-square-app-id="${Config.squareConfig.appId}"></div>
+            <div id="app-id" data-app-id="${Config.squareConfig.appId}"></div>
+            <div id="selling-price" data-selling-price="${Config.sellingPrice}"></div>
             <div id="promo-bar" style="width: 100%; height: 30px; background-color: #000; color: white; display: flex; flex-direction: row; justify-content: center; align-items: center; letter-spacing: 3px; font-size: 0.8em;">
                 ${Config.promoText}
             </div>

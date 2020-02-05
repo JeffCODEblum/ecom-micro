@@ -27,22 +27,25 @@ module.exports = function(docs) {
             `;
         }
     }
-    var starAverage = starTotal / reviewCount;
-    starAverage = starAverage.toFixed(1);
-
+    var starAverage;
     var starMarkup = '';
-    for (var i = 1; i < 6; i++) {      
-        if (starAverage >= i) {
-            starMarkup += '<span class="fa fa-star checked"></span>';
-        }
-        else if (starAverage < i) {
-            if (starAverage <= i - 1) {
-                starMarkup += '';
+    if (starTotal > 0) {
+        starAverage = starTotal / reviewCount;
+        starAverage = starAverage.toFixed(1);
+        for (var i = 1; i < 6; i++) {      
+            if (starAverage >= i) {
+                starMarkup += '<span class="fa fa-star checked"></span>';
             }
-            else if (starAverage > i - 1) {
-                starMarkup += '<span class="fa fa-star-half checked"></span>'
+            else if (starAverage < i) {
+                if (starAverage <= i - 1) {
+                    starMarkup += '';
+                }
+                else if (starAverage > i - 1) {
+                    starMarkup += '<span class="fa fa-star-half checked"></span>'
+                }
             }
         }
+        starMarkup += `<span style="font-size: 0.8em;">(${starAverage} / 5 based on ${reviewCount} reviews)</span>`;
     }
     
     var page = `

@@ -6,7 +6,7 @@ module.exports = {
     productName: "Original Galaxy Rose",
     productDescription: 'This beautifully crafted glass rose sculpture features a captivating display of colorful lights you will want to gaze into again and again. A unique gift for a special person. Order now and pay no shipping costs!',
     contactEmail: 'millennialmarketinggroup@gmail.com',
-    primeDatabase: true,
+    primeDatabase: false,
     keyPath: 'key.pem',
     certPath: 'cert.pem',
     squareConfig: {

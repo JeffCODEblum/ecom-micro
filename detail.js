@@ -64,7 +64,6 @@ module.exports = function(docs) {
             </div>
             <div style="margin-top: 10px; color: #333;">
                 ${starMarkup}
-                <span style="font-size: 0.8em;">(${starAverage} / 5 based on ${reviewCount} reviews)</span>
             </div>
             <div style="font-size: 1.4em; color: #333; font-weight: bold;">${Config.productName}</div>
             <div style="display: flex; flex-direction: column; margin-top: 20px; justify-content: center;">

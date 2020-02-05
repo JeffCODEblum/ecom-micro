@@ -40,7 +40,7 @@ $("#comment-btn").click(function(e) {
 
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:443/post-comment',
+        url: 'post-comment',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(payload)
     }).done(function(data) {
@@ -50,7 +50,7 @@ $("#comment-btn").click(function(e) {
 });
 
 
-function postPayment(nonce, formData) {
+function postPayment(data) {
 
     $.dialog({
         content: function() {
@@ -63,10 +63,7 @@ function postPayment(nonce, formData) {
                 },
                 url: 'process-payment',
                 contentType: 'application/json',
-                data: JSON.stringify({
-                    nonce: nonce,
-                    formData: formData
-                }),
+                data: JSON.stringify(data),
                 method: 'post'
             }).done(function(res) {
                 self.setTitle('<div style="padding: 5px; color: #333"><b>Thank You</b></div>');
@@ -85,7 +82,7 @@ function postPayment(nonce, formData) {
 }
 
 const paymentForm = new SqPaymentForm({
-    applicationId: "sandbox-sq0idb-E12Nhkfh49gLtlSnpfuODw",
+    applicationId: $('#square-app-id').data('square-app-id'),
     locationId: 'US',
     inputClass: 'sq-input',
     autoBuild: false,
@@ -133,44 +130,60 @@ const paymentForm = new SqPaymentForm({
                 currencyCode: "USD",
                 countryCode: "US",
                 total: {
-                  label: "MERCHANT NAME",
-                  amount: "1.00",
+                  label: "Millennial Marketing Firm",
+                  amount: "2.95",
                   pending: false
                 },
                 lineItems: [
                   {
                     label: "Subtotal",
-                    amount: "60.00",
+                    amount: "1.95",
                     pending: false
+                  },
+                  {
+                      label: "Shipping",
+                      amount: "1.00",
+                      pending: true
                   }
                 ],
                 shippingOptions: [
                   {
                     id: "1",
-                    label: "Shipping Charges",
-                    amount: "0.00"
+                    label: "Standard Shipping",
+                    amount: "1.00"
                   }
                ]
               };
         
               return paymentRequestJson;
         },
-        cardNonceResponseReceived: function (errors, nonce, cardData) {
-            console.log('Card nonce response received!');
+        cardNonceResponseReceived: function (errors, nonce, cardData, billingcontact, shippingContact, shippingOption) {
+            console.log('Card nonce response received!', cardData, shippingContact, shippingOption);
+            const data = {
+                nonce,
+                name: shippingContact.givenName,
+                email: shippingContact.email,
+                country: shippingContact.country,
+                region: shippingContact.region,
+                city: shippingContact.city,
+                addressLines: shippingContact.addressLines,
+                postalCode: shippingContact.postalCode,
+                phone: shippingContact.phone
+            };
             if (errors) {
                 console.log(errors);
                 $.alert({title: 'Error', content: 'Your payment could not be processed. Please try again.'});
                 return;
             }
             else {
-                postPayment(nonce, {});
+                postPayment(data);
             }
         }
     }
 });
 
 function onGetCardNonce(event) {
-    console.log("on get card nonce fired");
+    console.log("on get card nonce fired", event);
     event.preventDefault();
     paymentForm.requestCardNonce();
 }

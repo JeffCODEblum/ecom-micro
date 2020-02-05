@@ -21,6 +21,7 @@ module.exports = function(body) {
             </script>
         </head>
         <body>
+        <div id="square-app-id" style="display: none;" data-square-app-id="${Config.squareConfig.appId}"></div>
             <div id="promo-bar" style="width: 100%; height: 30px; background-color: #000; color: white; display: flex; flex-direction: row; justify-content: center; align-items: center; letter-spacing: 3px; font-size: 0.8em;">
                 ${Config.promoText}
             </div>

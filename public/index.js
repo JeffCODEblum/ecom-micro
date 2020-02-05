@@ -1,7 +1,7 @@
 var stars = 5;
 var Config = {
-    sellingPrice: $("#selling-price").data("selling-price"),
-    appId: $("#app-id").data("app-id")
+    sellingPrice: '' + $("#selling-price").data("selling-price"),
+    appId: '' + $("#app-id").data("app-id")
 };
 
 $(".img-thmb").click(function(e) {
